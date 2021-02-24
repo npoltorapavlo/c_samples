@@ -7,4 +7,7 @@ set_target_properties(${NAME} PROPERTIES
     CXX_STANDARD_REQUIRED YES
     )
 
-install(TARGETS ${NAME} DESTINATION bin)
+if(BUILD_WITH_VIRTUAL)
+    message("Building with virtual")
+    add_definitions (-DUSE_VIRTUAL)
+endif()

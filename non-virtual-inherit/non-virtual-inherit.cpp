@@ -20,8 +20,17 @@ public:
     f1();
     f2();
   }
+#ifdef USE_VIRTUAL
+  virtual
+#endif
   ~A() { __TRACE }
+#ifdef USE_VIRTUAL
+  virtual
+#endif
   void f1() { __TRACE }
+#ifdef USE_VIRTUAL
+  virtual
+#endif
   void f2() {
     __TRACE
     f1();
