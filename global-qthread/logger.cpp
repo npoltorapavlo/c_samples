@@ -7,7 +7,17 @@
 
 Logger* Logger::s_instance = NULL;
 
-static QThread s_thread; // non-POD static
+#ifdef USE_QT_GLOBAL
+Q_GLOBAL_STATIC(QThread, s_thread)
+#elif USE_LOCAL_STATIC
+QThread &s_thread()
+{
+    static QThread s;
+    return s;
+}
+#else
+static QThread s_thread; // global non-POD static
+#endif
 
 Logger::Logger(QObject* parent)
     : QObject(parent)
@@ -20,9 +30,17 @@ Logger* Logger::instance()
     if (!s_instance)
     {
         s_instance = new Logger;
-        s_thread.setObjectName(QLatin1String("logger"));
-        s_instance->getHelper()->moveToThread(&s_thread);
-        s_thread.start();
+        QThread *t;
+#ifdef USE_QT_GLOBAL
+        t = s_thread;
+#elif USE_LOCAL_STATIC
+        t = &s_thread();
+#else
+        t = &s_thread;
+#endif
+        t->setObjectName(QLatin1String("logger"));
+        s_instance->getHelper()->moveToThread(t);
+        t->start();
     }
     return s_instance;
 }
