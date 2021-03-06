@@ -21,10 +21,8 @@ public:
   }
   virtual void remove(const T& item) override {
     auto it = std::lower_bound(this->m_vec.begin(), this->m_vec.end(), item);
-    if (it != this->m_vec.end()) {
-      do {
-        it = this->m_vec.erase(it);
-      } while (it != this->m_vec.end() && *it == item);
+    while (it != this->m_vec.end() && *it == item) {
+      it = this->m_vec.erase(it);
     }
   }
 
