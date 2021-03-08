@@ -3,6 +3,8 @@ cmake_minimum_required(VERSION 3.16)
 
 set(TARGET thread-corrupt-stack)
 
+find_package(Threads REQUIRED)
+
 add_executable(${TARGET}
         thread-corrupt-stack.cpp
         dynamicloader.cpp
@@ -16,6 +18,7 @@ set_target_properties(${TARGET} PROPERTIES
 target_link_libraries(${TARGET}
         PRIVATE
         ${CMAKE_DL_LIBS}
+        Threads::Threads
         )
 
 target_include_directories(${TARGET}

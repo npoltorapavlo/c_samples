@@ -7,21 +7,24 @@
 
 int main(int argc, char** argv) {
 
-  DynamicLoader loader(
+  {
+    DynamicLoader loader(
 #ifdef __APPLE__
-      "sharedlibrary/libsharedlibrary.dylib"
+        "sharedlibrary/libsharedlibrary.dylib"
 #else
-      "sharedlibrary/libsharedlibrary.so"
+        "sharedlibrary/libsharedlibrary.so"
 #endif
-      );
+    );
 
-  loader.open();
+    loader.open();
 
-  void (*create)(std::shared_ptr<ISharedLibraryImp>&);
-  create = reinterpret_cast<void (*)(std::shared_ptr<ISharedLibraryImp>&)> (loader.lookup("create"));
-  std::shared_ptr<ISharedLibraryImp> imp;
-  create(imp);
-  imp->startThread();
+    void (*create)(std::shared_ptr<ISharedLibraryImp>&);
+    create = reinterpret_cast<void (*)(std::shared_ptr<ISharedLibraryImp>&)> (loader.lookup("create"));
+    std::shared_ptr<ISharedLibraryImp> imp;
+    create(imp);
+    imp->startThread();
+  }
+
 
   std::this_thread::sleep_for(std::chrono::seconds(5));
 

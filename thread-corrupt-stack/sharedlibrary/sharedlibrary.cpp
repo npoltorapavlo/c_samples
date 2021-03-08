@@ -1,9 +1,9 @@
 #include "sharedlibrary.h"
 
-#include <chrono>
-#include <thread>
+#include <pthread.h>
+#include <unistd.h>
 
-static bool isThreadRunning = false;
+bool isRunning = false;
 
 class SharedLibraryImp : public ISharedLibraryImp {
 public:
@@ -11,38 +11,38 @@ public:
   ~SharedLibraryImp();
 
   void startThread() noexcept;
+  static bool isThreadRunning() { return isRunning; };
 
 private:
-  static void threadRun();
+  static void *threadRun(void *);
 
-  std::thread m_thread;
+  pthread_t thread;
 };
 
 SharedLibraryImp::~SharedLibraryImp() {
+  printf("%s\n", __FUNCTION__);
 #ifdef JOIN_THREAD_ON_EXIT
-  isThreadRunning = false;
+  isRunning = false;
 
-  if (m_thread.joinable())
-    m_thread.join();
+  pthread_join(thread, nullptr);
 #endif
 }
 
 void SharedLibraryImp::startThread() noexcept {
-  isThreadRunning = true;
+  isRunning = true;
 
-  m_thread = std::thread(threadRun);
+  int rc = pthread_create(&thread, nullptr, (void* (*)(void*))threadRun, nullptr);
+  if (rc) {
+    printf("ERROR; return code from pthread_create() is %d\n", rc);
+  }
 }
 
-void SharedLibraryImp::threadRun() {
-  while (1) {
-    if (!isThreadRunning) {
-      printf("Thread Exit\n");
-      break;
-    }
-
-    printf("Thread Run\n");
-    std::this_thread::sleep_for(std::chrono::seconds(1));
+void *SharedLibraryImp::threadRun(void *) {
+  while (isRunning) {
+    usleep(1);
   }
+  printf("%s done\n", __FUNCTION__);
+  return nullptr;
 }
 
 extern "C" {
