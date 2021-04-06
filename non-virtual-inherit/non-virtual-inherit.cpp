@@ -2,82 +2,80 @@
 #include <fstream>
 #include <memory>
 
-std::ofstream __TRACEFILE("TRACE.OUT");
+#ifdef USE_VIRTUAL
+#define SPECIFIER virtual
+#else
+#define SPECIFIER
+#endif
 
-#define __TRACE __TRACEFILE << typeid(*this).name() << "::" << __FUNCTION__ << std::endl;
+std::ofstream TRACEFILE("TRACE.OUT");
+
+#define TRACE TRACEFILE << __FUNCTION__ << ' ';
+#define TRACE1(s) TRACEFILE << s << ' ';
+#define TRACE_ENDL TRACEFILE << std::endl;
 
 class A {
 private:
-  class ResA {
+  class Ar {
   public:
-    ResA() { __TRACE }
-    ~ResA() { __TRACE }
+    Ar() { TRACE }
+    ~Ar() { TRACE }
   };
 public:
-  A() : m_res(new ResA)
+  A() : m_res(new Ar)
   {
-    __TRACE
-    f1();
-    f2();
+    TRACE
+    _1();
+    _2();
   }
-#ifdef USE_VIRTUAL
-  virtual
-#endif
-  ~A() { __TRACE }
-#ifdef USE_VIRTUAL
-  virtual
-#endif
-  void f1() { __TRACE }
-#ifdef USE_VIRTUAL
-  virtual
-#endif
-  void f2() {
-    __TRACE
-    f1();
+  SPECIFIER ~A() { TRACE }
+  SPECIFIER void _1() { TRACE1("A1") }
+  SPECIFIER void _2() {
+    TRACE1("A2 ->")
+    _1();
   }
 private:
-  std::unique_ptr<ResA> m_res;
+  std::unique_ptr<Ar> m_res;
 };
 
 class B : public A {
 private:
-  class ResB {
+  class Br {
   public:
-    ResB() { __TRACE }
-    ~ResB() { __TRACE }
+    Br() { TRACE }
+    ~Br() { TRACE }
   };
 public:
-  B() : A(), m_res(new ResB)
+  B() : A(), m_res(new Br)
   {
-    __TRACE
-    f1();
-    f2();
+    TRACE
+    _1();
+    _2();
   }
-  ~B() { __TRACE }
-  void f1() { __TRACE }
+  ~B() { TRACE }
+  void _1() { TRACE1("B1") }
 private:
-  std::unique_ptr<ResB> m_res;
+  std::unique_ptr<Br> m_res;
 };
 
 int main(int argc, char** argv) {
   {
     A a;
-    a.f1();
-    a.f2();
+    a._1();
+    a._2();
   }
+  TRACE_ENDL
   {
     B b;
-    b.f1();
-    b.f2();
+    b._1();
+    b._2();
   }
+  TRACE_ENDL
   {
     std::unique_ptr<A> p1(new B);
-    p1->f1();
-    p1->f2();
-
-    auto p2 = static_cast<B*>(p1.get());
-    p2->f1();
-    p2->f2();
+    p1->_1();
+    p1->_2();
   }
+  TRACE_ENDL
   return 0;
 }
