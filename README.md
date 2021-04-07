@@ -14,3 +14,4 @@ The table below lists the subdirectories and their description.
 | [virtual-init](virtual-init) | experiment | A way to simulate the dynamic binding during initialization |
 | [thread-corrupt-stack](thread-corrupt-stack) | crash | A thread is accessing a shared library which has been unloaded causing SEGV |
 | [usb-drive-listing](usb-drive-listing) | experiment | App that uses libudev, mntent, and system paths to monitor USB drives |
+| [sqlite-corrupt](sqlite-corrupt) | experiment | A thread-safe handling of the case when sqlite file is removed during an active connection |
