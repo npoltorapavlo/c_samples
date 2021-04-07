@@ -1,5 +1,7 @@
 # sqlite-corrupt
 
+App starts concurrent users of a database which read/write/delete items. Periodically the file is removed. Db class detects that and recreates the db.
+
 ###### build
 
 ```shell script
