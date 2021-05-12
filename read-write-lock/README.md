@@ -1,6 +1,6 @@
 # read-write-lock
 
-Multiple threads read / write. Build with different locks to see the difference.
+Multiple threads read/write. Build with different locks to see the difference.
 
 ###### build
 
@@ -18,9 +18,13 @@ terminate called after throwing an instance of 'std::invalid_argument'
   what():  stol
 Aborted (core dumped)
 
-$ ./read-write-lock # READ_WRITE_LOCK
-6333726 reads, 8566965 writes. Time: 229691 1133426
+# READ_WRITE_LOCK
+$ ./read-write-lock
+reads, time=36590336 (microseconds), count=4686702
+writes, time=36816518 (microseconds), count=4554025
 
-$ ./read-write-lock # ADVANCED_LOCK
-2041191 reads, 11282798 writes. Time: 247971 920559
+# ADVANCED_LOCK
+$ ./read-write-lock
+reads, time=38165326 (microseconds), count=2536283
+writes, time=35928511 (microseconds), count=5964843
 ```
