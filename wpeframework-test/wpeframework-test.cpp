@@ -1,12 +1,10 @@
 #include "systemclient.h"
 #include "processinfo.h"
+#include "sleepinterrupt.h"
 
 #include <thread>
-#include <chrono>
 #include <stdio.h>
 #include <atomic>
-#include <mutex>
-#include <condition_variable>
 
 using namespace std;
 
@@ -21,9 +19,7 @@ int main(int argc, char** argv) {
     numClientsRecreated = atoi(argv[2]);
 
   atomic<bool> running(true);
-  bool invokeProcessInfoNow = false;
-  mutex mutex;
-  condition_variable cond;
+  SleepInterrupt sleep;
 
   vector<std::thread> workers;
 
@@ -33,10 +29,7 @@ int main(int argc, char** argv) {
 
       while (running) {
         if (!client.PrintInfo()) {
-          std::unique_lock<std::mutex> lock(mutex);
-          invokeProcessInfoNow = true;
-          lock.unlock();
-          cond.notify_one();
+          sleep.interrupt();
         }
       }
     }));
@@ -46,10 +39,7 @@ int main(int argc, char** argv) {
       while (running) {
         SystemClient client;
         if (!client.PrintInfo()) {
-          std::unique_lock<std::mutex> lock(mutex);
-          invokeProcessInfoNow = true;
-          lock.unlock();
-          cond.notify_one();
+          sleep.interrupt();
         }
       }
     }));
@@ -61,15 +51,13 @@ int main(int argc, char** argv) {
     while (running) {
       //client.PrintInfo(); // TODO why this crashes
 
-      std::unique_lock<std::mutex> lock(mutex);
-      cond.wait_for(lock, std::chrono::seconds(1), [&] { return !running || invokeProcessInfoNow; });
-      invokeProcessInfoNow = false;
+      sleep.sleep_for(std::chrono::seconds(1));
     }
   }));
 
   getchar();
   running = false;
-  cond.notify_one();
+  sleep.interrupt();
 
   std::for_each(workers.begin(), workers.end(), [](std::thread &t) {
     t.join();
