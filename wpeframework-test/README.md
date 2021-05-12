@@ -1,7 +1,6 @@
 # wpeframework-test
 
-This sample uses WPEFramework (https://github.com/rdkcentral/Thunder) and builds for RDK.
-
+This sample uses WPEFramework (https://github.com/rdkcentral/Thunder) and builds for RDK. Arg1 - num of concurrent clients, arg2 - num of concurrent clients which recreate JSONRPC::LinkType. Defaults are 2.
 ###### build
 
 ```shell script
