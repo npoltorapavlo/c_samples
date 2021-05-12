@@ -17,3 +17,5 @@ The table below lists the subdirectories and their description.
 | [sqlite-corrupt](sqlite-corrupt) | experiment | A thread-safe handling of the case when sqlite file is removed during an active connection |
 | [read-write-lock](read-write-lock) | experiment | Allow concurrent reads, but lock all threads on write |
 | [url-origin](url-origin) | experiment | Get URL origin unit test |
+| [wpeframework-test](wpeframework-test) | experiment | WPEFramework stress test |
+
