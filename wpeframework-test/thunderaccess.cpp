@@ -75,3 +75,7 @@ void ThunderAccess::UnSubscribeEvent(const std::string &eventName) {
 uint32_t ThunderAccess::InvokeJSONRPC(const std::string &method, const JsonObject &param, JsonObject &result) {
   return remoteObject->Invoke<JsonObject, JsonObject>(THUNDER_RPC_TIMEOUT, _T(method), param, result);
 }
+
+uint32_t ThunderAccess::Get(const std::string &method, JsonObject &result) {
+  return remoteObject->Get<JsonObject>(THUNDER_RPC_TIMEOUT, _T(method), result);
+}

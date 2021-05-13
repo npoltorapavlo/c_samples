@@ -10,6 +10,7 @@ using namespace std;
 
 int numClientsNonRecreated = 2;
 int numClientsRecreated = 2;
+int intervalProcessinfo = 1000;
 
 int main(int argc, char** argv) {
 
@@ -46,12 +47,11 @@ int main(int argc, char** argv) {
   }
 
   workers.push_back(std::thread([&]() {
-    ProcessInfo client;
-
     while (running) {
-      //client.PrintInfo(); // TODO why this crashes
+      ProcessInfo client;
+      client.PrintInfo();
 
-      sleep.sleep_for(std::chrono::seconds(1));
+      sleep.sleep_for(std::chrono::milliseconds(intervalProcessinfo));
     }
   }));
 
