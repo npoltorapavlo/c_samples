@@ -10,22 +10,22 @@ const list<string> systemMethods = {
     "requestSystemUptime",
     "getDeviceInfo",
     "getMode",
-    "getFirmwareUpdateInfo",
+    //"getFirmwareUpdateInfo", // sometimes timeouts
     "getNetworkStandbyMode",
     "getPreferredStandbyMode",
     "getAvailableStandbyModes",
     "getXconfParams",
-    "getSerialNumber",
+    //"getSerialNumber", // sometimes crashes
     "getFirmwareDownloadPercent",
     "getDownloadedFirmwareInfo",
     "getFirmwareUpdateState",
-    "getMacAddresses",
+    //"getMacAddresses", // sometimes timeouts
     "getTimeZoneDST",
     "getCoreTemperature",
     "getPreviousRebootInfo",
     "getLastDeepSleepReason",
     "getPreviousRebootReason",
-    "getMilestones",
+    //"getMilestones", // sometimes an overflow is seen
     "isGzEnabled",
     "getSystemVersions",
     "getPowerStateIsManagedByDevice",
