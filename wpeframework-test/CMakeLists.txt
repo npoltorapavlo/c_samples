@@ -15,6 +15,7 @@ add_executable(${TARGET}
         thunderaccess.cpp
         systemclient.cpp
         processinfo.cpp
+        whclient.cpp
         )
 
 if (WPEFRAMEWORK_FOUND)
