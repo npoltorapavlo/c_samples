@@ -18,6 +18,8 @@ public:
 
   void UnSubscribeEvent(const std::string &eventName);
 
+  uint32_t Get(const std::string &method, JsonObject &result);
+
 private:
   WPEFramework::JSONRPC::LinkType <WPEFramework::Core::JSON::IElement> *remoteObject;
   WPEFramework::JSONRPC::LinkType <WPEFramework::Core::JSON::IElement> *controllerObject;

@@ -1,5 +1,7 @@
 #include "systemclient.h"
 
+#include <list>
+
 using namespace std;
 
 const string systemCallsign = "org.rdk.System.1";
@@ -8,22 +10,22 @@ const list<string> systemMethods = {
     "requestSystemUptime",
     "getDeviceInfo",
     "getMode",
-    "getFirmwareUpdateInfo",
+    //"getFirmwareUpdateInfo", // sometimes timeouts
     "getNetworkStandbyMode",
     "getPreferredStandbyMode",
     "getAvailableStandbyModes",
     "getXconfParams",
-    "getSerialNumber",
+    //"getSerialNumber", // sometimes crashes
     "getFirmwareDownloadPercent",
     "getDownloadedFirmwareInfo",
     "getFirmwareUpdateState",
-    "getMacAddresses",
+    //"getMacAddresses", // sometimes timeouts
     "getTimeZoneDST",
     "getCoreTemperature",
     "getPreviousRebootInfo",
     "getLastDeepSleepReason",
     "getPreviousRebootReason",
-    "getMilestones",
+    //"getMilestones", // sometimes an overflow is seen
     "isGzEnabled",
     "getSystemVersions",
     "getPowerStateIsManagedByDevice",
@@ -52,12 +54,16 @@ bool SystemClient::PrintInfo() {
     result = false;
   }
 
+  list<string> subscribedEvents;
+
   for (auto const &i : systemEvents) {
     uint32_t status = client->SubscribeEvent(i, std::bind(&SystemClient::thunderEventHandler, this,
                                                           std::placeholders::_1));
     printf("SubscribeEvent, callsign=%s, event=%s, status=%d\n", systemCallsign.c_str(), i.c_str(), status);
     if (status != 0) {
       result = false;
+    } else {
+      subscribedEvents.emplace_front(i);
     }
   }
 
@@ -75,7 +81,9 @@ bool SystemClient::PrintInfo() {
     }
   }
 
-  for (auto const &i : systemEvents) {
+  // NOTE
+  // Unsubscribe only subscribed events. Otherwise ASSERT is hit.
+  for (auto const &i : subscribedEvents) {
     client->UnSubscribeEvent(i);
   }
 

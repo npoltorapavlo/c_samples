@@ -1,10 +1,28 @@
 #include "processinfo.h"
 
-#include <core/core.h>
+using namespace std;
 
-using namespace WPEFramework;
+const string controllerCallsign = "Controller.1";
+const string controllerMethodProcessinfo = "processinfo";
 
-void ProcessInfo::PrintInfo() {
-  const Core::WorkerPool::Metadata& snapshot = Core::WorkerPool::Instance().Snapshot();
-  printf("Snapshot, pending=%d, occupation=%d, slots=%d\n", snapshot.Pending, snapshot.Occupation, snapshot.Slots);
+ProcessInfo::ProcessInfo() : client(new ThunderAccess(controllerCallsign)) {}
+
+bool ProcessInfo::PrintInfo() {
+  bool result = false;
+
+  JsonObject resultObject;
+  uint32_t status = client->Get(controllerMethodProcessinfo, resultObject);
+  if (0 == status) {
+    string resultString;
+    resultObject.ToString(resultString);
+    printf("Get, callsign=%s, method=%s, status=0, result=%s\n", controllerCallsign.c_str(),
+           controllerMethodProcessinfo.c_str(),
+           resultString.c_str());
+  } else {
+    printf("Get, callsign=%s, method=%s, status=%d\n", controllerCallsign.c_str(), controllerMethodProcessinfo.c_str(),
+           status);
+    result = false;
+  }
+
+  return result;
 }
