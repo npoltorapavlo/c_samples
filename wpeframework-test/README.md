@@ -27,6 +27,8 @@ root@pacexi5:~# /opt/wpeframework-test 10 10 > /opt/wpeframework-test.log 2>&1
 
 ###### out-of-threads problem
 
+20 concurrent clients making ~5s calls + 1 client making normal calls. "pending" increased over 100, starting at some point all calls timed out, i.e. status=3, even though the responses were processed and received after the timeout.
+
 ```shell script
 /opt/wpeframework-test 1 0 20 > /opt/wpeframework-test.log 2>&1
 
@@ -47,3 +49,5 @@ grep -n 'status=3' wpeframework-test.log|tail -n1
 grep -n 'received' wpeframework-test.log|tail -n1
     6798:[JSONRPCLink.h:152](Received)<15988><1>: Message: {...} received
 ```
+
+**Summary:** possible "status 3" reasons are: there is no token, WPEFramework crashed/stopped, method is slow (timeout), there are no available threads (timeout). Note, in case of timeout, a call is still processed and response is sent. Log indicates method processing if there is any logging for it. Also, since all calls from all clients are in queue, they all get "status 3".
