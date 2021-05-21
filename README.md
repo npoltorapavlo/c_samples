@@ -18,4 +18,5 @@ The table below lists the subdirectories and their description.
 | [read-write-lock](read-write-lock) | snippet | A lock that allows concurrent reads, but not writes |
 | [url-origin](url-origin) | snippet | Get URL origin |
 | [wpeframework-test](wpeframework-test) | snippet | WPEFramework test |
+| [wpeframework-errcode](wpeframework-errcode) | snippet | Common errors in a simple WPEFramework client |
 
