@@ -2,10 +2,13 @@
 
 This sample uses WPEFramework (https://github.com/rdkcentral/Thunder) and builds for RDK. It shows the common errors in a simple WPEFramework client.
 
+Arg1 - whether token should be used (default is "false").
+Arg2 - whether plugin should be activated (default is "false").
+
 ###### build
 
 ```shell script
-devtool add --autorev --src-subdir wpeframework-errcode wpeframework-errcode "https://github.com/npoltorapavlo/c_samples.git;branch=wpeframework-errcode"
+devtool add --autorev --src-subdir wpeframework-errcode wpeframework-errcode "https://github.com/npoltorapavlo/c_samples.git;branch=main"
 devtool build wpeframework-errcode
 devtool reset wpeframework-errcode
 rm -rf workspace/sources/wpeframework-errcode

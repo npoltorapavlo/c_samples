@@ -8,7 +8,7 @@ Arg1 - client lifetime, ms (default is 5500).
 ###### build
 
 ```shell script
-devtool add --autorev --src-subdir wpeframework-timer wpeframework-timer "https://github.com/npoltorapavlo/c_samples.git;branch=wpeframework-timer"
+devtool add --autorev --src-subdir wpeframework-timer wpeframework-timer "https://github.com/npoltorapavlo/c_samples.git;branch=main"
 devtool build wpeframework-timer
 devtool reset wpeframework-timer
 rm -rf workspace/sources/wpeframework-timer
