@@ -1,6 +1,6 @@
-# wpeframework-test
+# wpeframework-errcode
 
-This sample uses WPEFramework (https://github.com/rdkcentral/Thunder) and builds for RDK.
+This sample uses WPEFramework (https://github.com/rdkcentral/Thunder) and builds for RDK. It shows the common errors in a simple WPEFramework client.
 
 ###### build
 
