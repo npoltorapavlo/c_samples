@@ -7,11 +7,13 @@ As a result, SEGV with unknown address.
 ###### build
 
 ```shell script
-brew install glib # macos
-git clean -fdx && cmake . && make
+$ brew install glib # macos
+$ git clean -fdx && cmake . && make
+or
+$ git clean -fdx && cmake . -DJOIN_THREAD_ON_EXIT=ON && make
 ```
 
-###### run
+###### run (w/o JOIN_THREAD_ON_EXIT)
 
 ```shell script
 $ lldb ./quit-gmain-loop

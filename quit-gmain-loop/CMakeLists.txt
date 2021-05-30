@@ -53,3 +53,7 @@ set_target_properties(${TARGET_SERVICES} PROPERTIES
         FRAMEWORK FALSE
         PUBLIC_HEADER "service.h"
         )
+
+if(JOIN_THREAD_ON_EXIT)
+    add_definitions (-DJOIN_THREAD_ON_EXIT)
+endif()

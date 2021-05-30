@@ -35,6 +35,9 @@ int pluginThreadTerm() {
   int result = 0;
   printf("%s\n", __FUNCTION__);
   g_main_loop_quit(Gloop);
+#ifdef JOIN_THREAD_ON_EXIT
+  pthread_join(a_thread, NULL);
+#endif
   return result;
 }
 
