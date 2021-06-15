@@ -6,7 +6,7 @@ set(TARGET ${PROJECT_NAME})
 
 find_package(Threads REQUIRED)
 
-add_executable(${TARGET} named-semaphore.cpp semaphore.cpp critsection.cpp)
+add_executable(${TARGET} named-semaphore.cpp binarysemaphore.cpp critsection.cpp)
 
 set_target_properties(${TARGET} PROPERTIES
     CXX_STANDARD 11

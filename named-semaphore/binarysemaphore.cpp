@@ -1,21 +1,21 @@
-#include "semaphore.h"
+#include "binarysemaphore.h"
 
 #include <fcntl.h>
 #include <time.h>
 
-Semaphore::Lock::Lock(Semaphore* sem, const uint32_t waitTime)
+BinarySemaphore::Lock::Lock(BinarySemaphore* sem, const uint32_t waitTime)
   : ptr(sem)
   , locked(false) {
   locked = ptr->Wait(waitTime);
 }
 
-Semaphore::Lock::~Lock() {
+BinarySemaphore::Lock::~Lock() {
   if (locked) {
     ptr->Unlock();
   }
 }
 
-Semaphore::Semaphore(const char* name)
+BinarySemaphore::BinarySemaphore(const char* name)
   : sem(nullptr)
   , sem_name(name) {
   if ((sem = sem_open(sem_name.c_str(), O_CREAT, 0644, 1)) == SEM_FAILED) {
@@ -23,7 +23,7 @@ Semaphore::Semaphore(const char* name)
   }
 }
 
-Semaphore::~Semaphore() {
+BinarySemaphore::~BinarySemaphore() {
   if (sem_unlink(sem_name.c_str()) == -1) {
     if (errno != ENOENT) {
       printf("%s:%d [%s] sem_unlink %d\n", __FILE__, __LINE__, __func__, errno);
@@ -31,7 +31,7 @@ Semaphore::~Semaphore() {
   }
 }
 
-bool Semaphore::Wait(const uint32_t waitTime) {
+bool BinarySemaphore::Wait(const uint32_t waitTime) {
   bool result = false;
   struct timespec ts;
   if (clock_gettime(CLOCK_REALTIME, &ts) == -1) {
@@ -52,7 +52,7 @@ bool Semaphore::Wait(const uint32_t waitTime) {
   return result;
 }
 
-bool Semaphore::Unlock() {
+bool BinarySemaphore::Unlock() {
   bool result = false;
   if (sem_post(sem) == -1) {
     printf("%s:%d [%s] sem_post %d\n", __FILE__, __LINE__, __func__, errno);

@@ -1,6 +1,6 @@
 #include "critsection.h"
 
-#include "semaphore.h"
+#include "binarysemaphore.h"
 
 #include <unistd.h>
 #include <thread>
@@ -9,8 +9,8 @@
 void critSection(const uint32_t waitTime, const uint32_t runTimeS) {
   printf("entering crit section pid %ld\n", (long) getpid());
 
-  static Semaphore mutex("critSection");
-  Semaphore::Lock lock(&mutex, waitTime);
+  BinarySemaphore sem("critSection");
+  BinarySemaphore::Lock lock(&sem, waitTime);
 
   printf("entered crit section pid %ld\n", (long) getpid());
 
