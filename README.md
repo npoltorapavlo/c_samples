@@ -21,4 +21,5 @@ The table below lists the subdirectories and their description.
 | [wpeframework-errcode](wpeframework-errcode) | snippet | Common errors in a simple WPEFramework client |
 | [wpeframework-timer](wpeframework-timer) | crash | A crash due to a timer not finished before destructor |
 | [quit-gmain-loop](quit-gmain-loop) | crash | GMain loop in a shared library which unloads causes SEGV |
+| [named-semaphore](named-semaphore) | snippet | POSIX named semaphore example |
 
