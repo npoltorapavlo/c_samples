@@ -33,3 +33,26 @@ leaving crit section pid 34507
 ending pid 34506
 ending pid 34507
 ```
+
+If process crashes, semaphore state remains. App which waits for semaphore will be waiting indefinitely:
+
+```shell script
+hexdump /dev/shm/sem.critSection
+0000000 0001 0000 0000 0000 0080 0000 0000 0000
+0000010 0000 0000 0000 0000 0000 0000 0000 0000
+0000020
+hexdump locked
+0000000 0000 0000 0000 0000 0080 0000 0000 0000
+0000010 0000 0000 0000 0000 0000 0000 0000 0000
+0000020
+cp locked /dev/shm/sem.critSection
+./named-semaphore
+starting pid 35951 numForks=3, programRun=10, semWait=5, critSectionRun=1
+forked child process pid 35952
+entering crit section pid 35952
+forked child process pid 35953
+entering crit section pid 35953
+forked child process pid 35954
+entering crit section pid 35954
+binarysemaphore.cpp:43 [Wait] sem_timedwait 110
+```
