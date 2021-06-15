@@ -1,5 +1,5 @@
-#ifndef CLIENTLIBRARIES_SEMAPHORE_H
-#define CLIENTLIBRARIES_SEMAPHORE_H
+#ifndef SEMAPHORE_H
+#define SEMAPHORE_H
 
 #include <semaphore.h>
 #include <string>
@@ -29,4 +29,4 @@ private:
   std::string sem_name;
 };
 
-#endif //CLIENTLIBRARIES_SEMAPHORE_H
+#endif //SEMAPHORE_H
