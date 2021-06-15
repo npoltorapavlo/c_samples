@@ -24,10 +24,8 @@ BinarySemaphore::BinarySemaphore(const char* name)
 }
 
 BinarySemaphore::~BinarySemaphore() {
-  if (sem_unlink(sem_name.c_str()) == -1) {
-    if (errno != ENOENT) {
-      printf("%s:%d [%s] sem_unlink %d\n", __FILE__, __LINE__, __func__, errno);
-    }
+  if (sem_close(sem) == -1) {
+    printf("%s:%d [%s] sem_close %d\n", __FILE__, __LINE__, __func__, errno);
   }
 }
 

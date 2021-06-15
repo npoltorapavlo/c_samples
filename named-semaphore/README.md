@@ -15,21 +15,21 @@ git clean -fdx && cmake . && make
 
 ```shell script
 ./named-semaphore 3 10 20 5
-starting pid 33187 numForks=3, programRun=10, semWait=20, critSectionRun=5
-forked child process pid 33188
-entering crit section pid 33188
-forked child process pid 33189
-entering crit section pid 33189
-forked child process pid 33190
-entering crit section pid 33190
-entered crit section pid 33188
-leaving crit section pid 33188
-entered crit section pid 33189
-ending pid 33187
-leaving crit section pid 33189
-entered crit section pid 33190
-ending pid 33188
-leaving crit section pid 33190
-ending pid 33189
-ending pid 33190
+starting pid 34504 numForks=3, programRun=10, semWait=20, critSectionRun=5
+forked child process pid 34505
+entering crit section pid 34505
+forked child process pid 34506
+entering crit section pid 34506
+forked child process pid 34507
+entering crit section pid 34507
+entered crit section pid 34505
+leaving crit section pid 34505
+entered crit section pid 34506
+ending pid 34504
+leaving crit section pid 34506
+entered crit section pid 34507
+ending pid 34505
+leaving crit section pid 34507
+ending pid 34506
+ending pid 34507
 ```
