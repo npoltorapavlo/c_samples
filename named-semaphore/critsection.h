@@ -3,6 +3,6 @@
 
 #include <stdint.h>
 
-void critSection(const uint32_t waitTime, const uint32_t runTimeS);
+void critSection();
 
 #endif //C_SAMPLES_CRITSECTION_H

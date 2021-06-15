@@ -6,15 +6,15 @@
 #include <thread>
 #include <chrono>
 
-void critSection(const uint32_t waitTime, const uint32_t runTimeS) {
+void critSection() {
   printf("entering crit section pid %ld\n", (long) getpid());
 
   BinarySemaphore sem("critSection");
-  BinarySemaphore::Lock lock(&sem, waitTime);
+  BinarySemaphore::Lock lock(&sem, 10);
 
   printf("entered crit section pid %ld\n", (long) getpid());
 
-  std::this_thread::sleep_for(std::chrono::seconds(runTimeS));
+  std::this_thread::sleep_for(std::chrono::milliseconds(100));
 
   printf("leaving crit section pid %ld\n", (long) getpid());
 }
