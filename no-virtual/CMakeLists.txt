@@ -1,6 +1,6 @@
-set(NAME non-virtual-inherit)
+set(NAME no-virtual)
 
-add_executable(${NAME} non-virtual-inherit.cpp)
+add_executable(${NAME} no-virtual.cpp)
 
 set_target_properties(${NAME} PROPERTIES
     CXX_STANDARD 11

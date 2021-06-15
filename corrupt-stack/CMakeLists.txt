@@ -1,12 +1,12 @@
-project(thread-corrupt-stack)
+project(corrupt-stack)
 cmake_minimum_required(VERSION 3.16)
 
-set(TARGET thread-corrupt-stack)
+set(TARGET corrupt-stack)
 
 find_package(Threads REQUIRED)
 
 add_executable(${TARGET}
-        thread-corrupt-stack.cpp
+        corrupt-stack.cpp
         dynamicloader.cpp
         )
 

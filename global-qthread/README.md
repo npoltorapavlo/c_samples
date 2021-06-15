@@ -1,6 +1,8 @@
 # global-qthread
 
-###### recipe
+The reason of crash is qt_message_print calls isEnabled on an instance QLoggingCategory::defaultCategory() which is a static global (Q_GLOBAL_STATIC) and destroys earlier.
+
+###### build
 
 ```shell script
 $ tar czf global-qthread.tgz global-qthread
@@ -48,4 +50,3 @@ Thread 1 "global-qthread" received signal SIGSEGV, Segmentation fault.
 #4  0xb6d47c1c in QThread::~QThread() ()
 #5  0xb6b25c88 in __run_exit_handlers
 ```
-The reason of crash is qt_message_print calls isEnabled on an instance QLoggingCategory::defaultCategory() which is a static global (Q_GLOBAL_STATIC) and destroys earlier.

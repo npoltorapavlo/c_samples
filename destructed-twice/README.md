@@ -1,4 +1,4 @@
-# destructor-called-twice
+# destructed-twice
 
 ```shell script
 $ git clean -fdx && cmake . && make

@@ -1,3 +1,0 @@
-Ar A A1 A2 -> A1 A1 A2 -> A1 ~A ~Ar 
-Ar A A1 A2 -> A1 Br B B1 A2 -> A1 B1 A2 -> A1 ~B ~Br ~A ~Ar 
-Ar A A1 A2 -> A1 Br B B1 A2 -> A1 A1 A2 -> A1 ~A ~Ar 

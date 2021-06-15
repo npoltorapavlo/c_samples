@@ -1,10 +1,9 @@
-# thread-corrupt-stack
+# corrupt-stack
 
 ###### build
 
 ```shell script
 $ git clean -fdx && cmake . && make
-or
 $ git clean -fdx && cmake . -DJOIN_THREAD_ON_EXIT=ON && make
 ```
 
@@ -13,12 +12,12 @@ $ git clean -fdx && cmake . -DJOIN_THREAD_ON_EXIT=ON && make
 ```shell script
 $ ulimit -c unlimited
 
-$ ./thread-corrupt-stack 
+$ corrupt-stack 
 ~SharedLibraryImp
 Unloaded library: sharedlibrary/libsharedlibrary.so
 Segmentation fault (core dumped)
 
-$ gdb thread-corrupt-stack core
+$ gdb corrupt-stack core
 Program terminated with signal SIGSEGV, Segmentation fault.
 #0  0x00007f300687d600 in ?? ()
 [Current thread is 1 (Thread 0x7f30062fe700 (LWP 20712))]
@@ -39,7 +38,7 @@ Thread 1 (Thread 0x7f30062fe700 (LWP 20712)):
 ###### w/ JOIN_THREAD_ON_EXIT
 
 ```shell script
-$ ./thread-corrupt-stack 
+$ corrupt-stack 
 ~SharedLibraryImp
 threadRun done
 Unloaded library: sharedlibrary/libsharedlibrary.so

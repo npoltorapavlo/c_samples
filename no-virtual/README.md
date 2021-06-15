@@ -1,14 +1,11 @@
-# non-virtual-inherit
+# no-virtual
 
-B derives from A. A:: f1/f2 print A1/A2, f2 calls f1. B overrides f1, prints B1. f1, f2 are called from constructors. Test creates A, B on stack, B on heap (casted to A). For each calls f1, f2.
+B derives from A. A::_1/_2 print A1/A2, _2 calls _1. B overrides _1, prints B1. _1, _2 are called from constructors. Test creates A, B on stack, B on heap (casted to A). For each calls _1, _2.
 
 ###### build
 
 ```shell script
 $ git clean -fdx && cmake . && make
-
-w/ virtual:
-
 $ git clean -fdx && cmake -DBUILD_WITH_VIRTUAL=ON . && make
 ```
 
