@@ -22,4 +22,5 @@ The table below lists the subdirectories and their description.
 | [quit-gmain-loop](quit-gmain-loop) | crash | GMainLoop in a dynamic library causes SEGV on dlclose |
 | [named-semaphore](named-semaphore) | sample | POSIX named semaphore sample |
 | [file-lock](file-lock) | sample | Shared mutex via flock |
+| [rfcapi-test](rfcapi-test) | crash | Overflow in RFCapi |
 
