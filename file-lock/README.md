@@ -29,4 +29,12 @@ ending pid 45698
 entered crit section pid 45699
 leaving crit section pid 45699
 ending pid 45699
+
+./file-lock-crashtest 
+starting pid 103019
+parent process pid 103019 waits
+forked child process pid 103020
+child process acquired lock, forcing segfault
+parent process acquired lock, test paased!!!
+ending pid 103019
 ```
