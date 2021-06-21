@@ -6,6 +6,12 @@ Arg1 - num of child processes (default is 3).
 
 ```shell script
 git clean -fdx && cmake . && make
+
+for RDK:
+devtool add --autorev --src-subdir file-lock file-lock "https://github.com/npoltorapavlo/c_samples.git;branch=main"
+devtool build file-lock
+devtool reset file-lock
+rm -rf workspace/sources/file-lock
 ```
 
 ###### run
