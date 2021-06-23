@@ -23,4 +23,5 @@ The table below lists the subdirectories and their description.
 | [named-semaphore](named-semaphore) | sample | POSIX named semaphore sample |
 | [file-lock](file-lock) | sample | Shared mutex via flock |
 | [rfcapi-test](rfcapi-test) | crash | Overflow in RFCapi |
+| [iarm-init](iarm-init) | test | Test for IARM_Bus_Init concurrency |
 
