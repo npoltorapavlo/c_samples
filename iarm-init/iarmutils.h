@@ -3,7 +3,10 @@
 
 namespace Utils {
   struct IARM {
-    static bool init(const char* name);
+    static bool init();
+    static bool isConnected();
+
+    static const char* NAME;
   };
 }
 

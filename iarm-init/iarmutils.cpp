@@ -9,36 +9,55 @@
 
 using namespace std;
 
-bool Utils::IARM::init(const char* name) {
+const char* Utils::IARM::NAME = "Thunder_Plugins";
+
+bool Utils::IARM::isConnected() {
   uint32_t id = hash<thread::id>{}(this_thread::get_id());
 
-  printf("[%lu] (re)checking if IARM is connected\n", id);
+  printf("[%lu] %s\n", id, __FUNCTION__);
 
   IARM_Result_t res;
   int isRegistered = 0;
-  res = IARM_Bus_IsConnected(name, &isRegistered);
+  res = IARM_Bus_IsConnected(NAME, &isRegistered);
+  printf("[%lu] IARM_Bus_IsConnected: %d\n", id, res);
 
-  printf("[%lu] new=%d, res=%d\n", id, isRegistered, res);
+  printf("[%lu] %s: %d\n", id, __FUNCTION__, isRegistered);
 
-  if (isRegistered > 0) {
+  return (isRegistered == 1);
+}
+
+bool Utils::IARM::init() {
+  uint32_t id = hash<thread::id>{}(this_thread::get_id());
+
+  printf("[%lu] %s\n", id, __FUNCTION__);
+
+  IARM_Result_t res;
+  bool result = false;
+
+  if (isConnected()) {
     printf("[%lu] IARM already connected\n", id);
-    return true;
-  }
-
-  res = IARM_Bus_Init(name);
-  if (res == IARM_RESULT_SUCCESS) {
-    res = IARM_Bus_Connect();
-    if (res != IARM_RESULT_SUCCESS) {
-      printf("[%lu] IARM_Bus_Connect failure: %d\n", id, res);
-      res = IARM_Bus_Term();
-      return false;
-    }
+    result = true;
   } else {
-    printf("[%lu] IARM_Bus_Init failure: %d\n", id, res);
-    return false;
+    res = IARM_Bus_Init(NAME);
+    printf("[%lu] IARM_Bus_Init: %d\n", id, res);
+    if (res == IARM_RESULT_SUCCESS ||
+      res == IARM_RESULT_INVALID_STATE /* already inited or connected */) {
+
+      res = IARM_Bus_Connect();
+      printf("[%lu] IARM_Bus_Connect: %d\n", id, res);
+      if (res == IARM_RESULT_SUCCESS ||
+        res == IARM_RESULT_INVALID_STATE /* already connected or not inited */) {
+
+        result = isConnected();
+      } else {
+        printf("[%lu] IARM_Bus_Connect failure: %d\n", id, res);
+      }
+    } else {
+      printf("[%lu] IARM_Bus_Init failure: %d\n", id, res);
+    }
   }
 
-  printf("[%lu] IARM connected\n", id);
+  printf("[%lu] %s: %d\n", id, __FUNCTION__, result);
 
-  return true;
+  return result;
 }

@@ -3,7 +3,6 @@
 This sample uses IARM and builds for RDK.
 
 Arg1 - num concurrent threads to init IARM (default is 5).
-Arg2 - connection name (default is "test").
 
 ###### build
 
