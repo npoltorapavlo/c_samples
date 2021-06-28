@@ -24,5 +24,6 @@ The table below lists the subdirectories and their description.
 | [file-lock](file-lock) | sample | Shared mutex via flock |
 | [rfcapi-test](rfcapi-test) | crash | Overflow in RFCapi |
 | [iarm-init](iarm-init) | test | Test for IARM_Bus_Init concurrency |
+| [sockets](sockets) | sample | Web, unix socket sample |
 | [rpc-test](rpc-test) | sample | Thunder RPC |
 
