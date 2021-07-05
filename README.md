@@ -17,7 +17,7 @@ The table below lists the subdirectories and their description.
 | [read-write-lock](read-write-lock) | test | A lock that allows concurrent reads, but not writes |
 | [url-origin](url-origin) | sample | Get URL origin sample |
 | [wpeframework-test](wpeframework-test) | test | WPEFramework stress test |
-| [wpeframework-errcode](wpeframework-errcode) | test | Common error codes in a simple WPEFramework client |
+| [jsonrpc-test](jsonrpc-test) | test | JSONRPC::LinkType test |
 | [wpeframework-timer](wpeframework-timer) | crash | A crash due to a timer not finished before destructor |
 | [quit-gmain-loop](quit-gmain-loop) | crash | GMainLoop in a dynamic library causes SEGV on dlclose |
 | [named-semaphore](named-semaphore) | sample | POSIX named semaphore sample |
