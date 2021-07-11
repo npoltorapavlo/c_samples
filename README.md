@@ -26,4 +26,5 @@ The table below lists the subdirectories and their description.
 | [iarm-init](iarm-init) | test | Test for IARM_Bus_Init concurrency |
 | [sockets](sockets) | sample | Web, unix socket sample |
 | [sysinfo-test](sysinfo-test) | test | Test code that uses sysinfo |
+| [rpc-test](rpc-test) | sample | Thunder RPC |
 
